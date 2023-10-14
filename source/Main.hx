@@ -57,6 +57,11 @@ class Main extends Sprite
 		}
 	}
 
+	public static function framerateAdjust(input:Float)
+	{
+		return input * (60 / FlxG.drawFramerate);
+	}
+
 	private function init(?E:Event):Void
 	{
 		if (hasEventListener(Event.ADDED_TO_STAGE))
@@ -82,12 +87,10 @@ class Main extends Sprite
 		}
 	
 		ClientPrefs.loadDefaultKeys();
-
-		// github i hate myself
-		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom #end, framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
-		fpsVar = new FPS(10, 3, 0xFFFFFF);
+		fpsVar = new FPS(0, 0);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;

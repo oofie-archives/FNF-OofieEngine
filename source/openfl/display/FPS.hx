@@ -36,7 +36,7 @@ class FPS extends TextField
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
+	public function new(x:Float, y:Float)
 	{
 		super();
 
@@ -45,10 +45,14 @@ class FPS extends TextField
 
 		currentFPS = 0;
 		selectable = false;
+
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("VCR OSD Mono", 16, color);
+
+		defaultTextFormat = new TextFormat("VCR OSD Mono", 16, 0xFFFFFF);
+
 		autoSize = LEFT;
 		multiline = true;
+
 		text = "FPS: ";
 
 		cacheCount = 0;
@@ -89,8 +93,6 @@ class FPS extends TextField
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			text += "\nMEM: " + memoryMegas + " MB";
 			#end
-
-			textColor = 0xFFFFFFFF;
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
 			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
