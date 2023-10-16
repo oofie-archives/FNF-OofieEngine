@@ -31,6 +31,7 @@ class VisualsUISubState extends BaseOptionsMenu
 {
 	public function new()
 	{
+		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
 
 		var option:Option = new Option('Note Splashes',
@@ -52,7 +53,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'timeBarType',
 			'string',
 			'Time Left',
-			['Time Left', 'Time Elapsed', 'Song Name', 'Song and TL / TE',  'Disabled']);
+			['Time Left', 'Time Elapsed', 'Song Name', 'Song / Time Left', 'Song / TL and TE', 'Disabled']);
 		addOption(option);
 
 		var option:Option = new Option('Flashing Lights',
@@ -60,6 +61,14 @@ class VisualsUISubState extends BaseOptionsMenu
 			'flashing',
 			'bool',
 			true);
+		addOption(option);
+
+		var option:Option = new Option('Icon Bop:',
+			"What should the Icon Bopping be?",
+			'iconBop',
+			'string',
+			'Psych',
+			['Psych', 'Forever']);
 		addOption(option);
 
 		var option:Option = new Option('Camera Zooms',
@@ -97,6 +106,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 		#end
+
+		var option:Option = new Option('Smooth Healthbar',
+			"If checked, the Healthbar's movement becomes smoother.",
+			'smoothHealthbar',
+			'bool',
+			false);
+		addOption(option);
 		
 		var option:Option = new Option('Pause Screen Song:',
 			"What song do you prefer for the Pause Screen?",
@@ -106,21 +122,19 @@ class VisualsUISubState extends BaseOptionsMenu
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
-		
-		#if CHECK_FOR_UPDATES
-		var option:Option = new Option('Check for Updates',
-			'On Release builds, turn this on to check for updates when you start the game.',
-			'checkForUpdates',
-			'bool',
-			true);
-		addOption(option);
-		#end
 
 		var option:Option = new Option('Combo Stacking',
 			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
 			'comboStacking',
 			'bool',
 			true);
+		addOption(option);
+
+		var option:Option = new Option('Fixed Judgements',
+			"If checked, makes the Judgements go to the HUD instead of the Game.",
+			'fixedJudgements',
+			'bool',
+			false);
 		addOption(option);
 
 		super();

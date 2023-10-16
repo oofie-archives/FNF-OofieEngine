@@ -12,6 +12,9 @@ class HealthIcon extends FlxSprite
 	private var isPlayer:Bool = false;
 	private var char:String = '';
 
+	public var initialWidth:Float = 0;
+	public var initialHeight:Float = 0;
+
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super();
@@ -19,14 +22,6 @@ class HealthIcon extends FlxSprite
 		this.isPlayer = isPlayer;
 		changeIcon(char);
 		scrollFactor.set();
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		if (sprTracker != null)
-			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
 	}
 
 	public function swapOldIcon() {
@@ -47,6 +42,9 @@ class HealthIcon extends FlxSprite
 			iconOffsets[0] = (width - 150) / 2;
 			iconOffsets[1] = (width - 150) / 2;
 			updateHitbox();
+
+			initialWidth = width;
+			initialHeight = height;
 
 			animation.add(char, [0, 1], 0, false, isPlayer);
 			animation.play(char);
@@ -72,6 +70,14 @@ class HealthIcon extends FlxSprite
 		super.updateHitbox();
 		offset.x = iconOffsets[0];
 		offset.y = iconOffsets[1];
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (sprTracker != null)
+			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 	}
 
 	public function getCharacter():String {

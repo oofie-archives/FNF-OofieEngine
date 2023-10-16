@@ -41,12 +41,14 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	private var descBox:FlxSprite;
 	private var descText:FlxText;
 
+	public var title:String;
 	public var rpcTitle:String;
 
 	public function new()
 	{
 		super();
 
+		if(title == null) title = 'Options';
 		if(rpcTitle == null) rpcTitle = 'Options Menu';
 		
 		#if desktop
@@ -72,6 +74,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		descBox.alpha = 0.6;
 		add(descBox);
+
+		var titleText:Alphabet = new Alphabet(75, 40, title, true);
+		titleText.scaleX = 0.6;
+		titleText.scaleY = 0.6;
+		titleText.alpha = 0.4;
+		add(titleText);
 
 		descText = new FlxText(50, 600, 1180, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

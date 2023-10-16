@@ -72,6 +72,8 @@ class TitleState extends MusicBeatState
 
 	var wackyImage:FlxSprite;
 
+	var mustUpdate:Bool = false;
+
 	var titleJSON:TitleData;
 
 	public static var updateVersion:String = '';
@@ -294,11 +296,6 @@ class TitleState extends MusicBeatState
 		// titleText.screenCenter(X);
 		add(titleText);
 
-		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
-		logo.screenCenter();
-		logo.antialiasing = ClientPrefs.globalAntialiasing;
-		// add(logo);
-
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
 
@@ -391,6 +388,8 @@ class TitleState extends MusicBeatState
 			if (titleTimer > 2) titleTimer -= 2;
 		}
 
+		// EASTER EGG
+
 		if (initialized && !transitioning && skippedIntro)
 		{
 			if (newTitle && !pressedEnter)
@@ -420,7 +419,11 @@ class TitleState extends MusicBeatState
 
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new MainMenuState());
+					if (mustUpdate) {
+						MusicBeatState.switchState(new OutdatedState());
+					} else {
+						MusicBeatState.switchState(new MainMenuState());
+					}
 					closedState = true;
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
@@ -501,10 +504,10 @@ class TitleState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['oofie']);
+					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
 				// credTextShit.visible = true;
 				case 4:
-					addMoreText('presents');
+					addMoreText('present');
 				// credTextShit.text += '\npresent...';
 				// credTextShit.addText();
 				case 5:
@@ -513,7 +516,7 @@ class TitleState extends MusicBeatState
 				// credTextShit.text = 'In association \nwith';
 				// credTextShit.screenCenter();
 				case 6:
-					createCoolText(['Not associated', 'with'], -40);
+					createCoolText(['In association', 'with'], -40);
 				case 8:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
@@ -537,13 +540,13 @@ class TitleState extends MusicBeatState
 				// credTextShit.text = "Friday";
 				// credTextShit.screenCenter();
 				case 14:
-					addMoreText('Friday Night Funkin');
+					addMoreText('Friday');
 				// credTextShit.visible = true;
 				case 15:
-					addMoreText('Oofie');
+					addMoreText('Night');
 				// credTextShit.text += '\nNight';
 				case 16:
-					addMoreText('Engine'); // credTextShit.text += '\nFunkin';
+					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
 
 				case 17:
 					skipIntro();
